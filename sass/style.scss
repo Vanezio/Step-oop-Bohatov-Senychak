@@ -1,0 +1,20 @@
+.container {
+    width: 90%;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+.header {
+    height: 80px;
+    width: 100%;
+    background: linear-gradient(#F0F065, #9198e5);
+    display: flex;
+    justify-content: space-around;
+}
+
+.header__logo {
+    background-image: url(../img/logo.png);
+}
+body {
+    background-color: #000;
+}
