@@ -1,0 +1,138 @@
+body {
+    font-family: 'Lato', sans-serif;
+}
+.dark-bg {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);  
+}
+
+.container {
+    max-width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    font-family: 'Lato', sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 110px;
+    background-image: linear-gradient(to right, #ded0d8, #dcbfd5, #d6afd5, #cba1d9, #ba94de, #a49bec, #85a2f8, #5baaff, #15c2ff, #00d7ff, #0deafe, #5ffbf1);
+    border-radius: 10px;
+}
+
+.header__logo {
+    width: 90px;
+    height: 90px;
+    background-image: url(../img/medical.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: 20px;
+}
+
+.btn {
+    height: 50px;
+    width: 130px;
+    border-radius: 10px;
+    border: transparent;
+    margin-right: 20px;
+    font-weight: bold;
+    background-color: #fff;
+    font-size: 16px;
+    color: #3E8BFF;
+    transition: 0.5s;
+    cursor: pointer;
+    outline: none;
+}
+.btn:hover {
+    background-color: #DE6BAD;
+    color: #fff;
+}
+
+.main {
+    margin-top: 50px;
+    height: 500px;
+    width: 100%;
+    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+    border-radius: 10px;
+}
+
+.message-add {
+    text-align: center;
+    padding-top: 20px;
+    color: red;
+    font-size: 18px;
+}
+
+/*  */
+.main {
+    position: relative;
+}
+
+.block-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, calc(-50% + 26px));
+    width: 450px;
+    height: 500px;
+    background-color: #ccc;
+    border-radius: 10px;
+    z-index: 150;
+}
+
+.doctors {
+    text-align: center;
+    font-size: 24px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    width: 100%;
+    height: 50px;
+    background-image: linear-gradient(to right, #2e84a0, #007eb5, #0075ca, #0067da, #0052df, #1e49dc, #2f40d9, #3d35d5, #3d40d2, #4049cf, #4451cb, #4959c6);
+    line-height: 43px;
+    border-radius: 10px;
+}
+
+/* .fa-times {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 12px;
+} */
+
+/* drops */
+
+.list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.list-item {
+    font-size: 18px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-bottom: 1px solid grey;
+    width: 100%;
+    height: 40px;
+    padding-top: 20px;
+    transition: 0.5s;
+}
+.list-item:hover {
+    background-image: linear-gradient(to right, #f1c8e0, #e3c0db, #d5b7d6, #c7b0d1, #b8a8cb, #b1a2cc, #a99dce, #9f98d0, #9a94da, #9590e4, #8e8cef, #8588f9);
+    color: #fff;
+}
+
+
+
+
+
+
+
