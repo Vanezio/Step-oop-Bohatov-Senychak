@@ -1,10 +1,52 @@
 
+class Visit {
+    constructor (type, date, name, goal, info){
+        this._visitName = name
+        this._visitDate = date
+        this._visitType = type
+        this._visitGoal = goal
+        this._extraInfo = info
+}
+}
+
+class Therapist extends  Visit{
+    constructor(type, date, name, goal, info, age) {
+        super(type, date, name, goal, info);
+        this._visitAge = age;
+    }
+}
+
+class Dentist extends  Visit{
+    constructor(type, date, name, goal, info, lastDate) {
+        super(type, date, name, goal, info);
+        this._lastVisit = lastDate
+    }
+}
+
+class Cardiologist extends  Visit{
+    constructor(type, date, name, goal, info, age, pressure , mass, diseases) {
+        super(type, date, name, goal, info);
+        this._visitAge = age;
+        this._commonPressure  = pressure ;
+        this._bodyIndex = mass;
+        this.heartDiseases = diseases;
+    }
+}
+
+//
+//
+//
+//
+//
+//
+//
+
 let containerBg
 let blockModal
 let body
 let choseDoctor
 let iconClose
-// let dropBlock = document.getElementById('drop-block')
+
     
 
 function showModal () {
@@ -43,7 +85,33 @@ function showModal () {
         closeModal()
     })
 }
+
+//
+//
+//
+//
+//
+//
+
+let visitsArr=[];
+
+const localCheck = () => {
+    if(localStorage.getItem('visitArr'))  {
+        visitsArr = JSON.parse(localStorage.getItem('visitArr'));
+        alertEmpty.style.display = 'none'
+    }
+};
+
+localCheck();
+
+//
+//
+//
+//
+//
+
 // function show doctors
+
 function showDoctors () {
     // create block width doctors
     let dropDoctorBlock = document.createElement('div')
@@ -61,30 +129,70 @@ function showDoctors () {
     dropItemCard.innerText += 'Cardiologist'
     dropItemDent.innerText += 'Dentist'
     dropItemTer.innerText += 'therapist'
+
+
+    dropList.addEventListener('click', (event) => {
+        let type = prompt('write here'),
+            date = prompt('write here'),
+            name = prompt('write here'),
+            goal = prompt('write here'),
+            info = prompt('write here')
+
+        if(event.target === dropItemCard) {
+            let age = prompt('write here'),
+                pressure = prompt('write here'),
+                mass = prompt('write here'),
+                diseases = prompt('write here');
+            const visit = new Cardiologist(type, date, name, goal, info, age, pressure , mass, diseases);
+            console.log(visit);
+            visitsArr.push(visit);
+            localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
+        }else if(event.target === dropItemDent) {
+            let lastDate = prompt('write here');
+            const visit = new Dentist(type, date, name, goal, info, lastDate);
+            console.log(visit);
+            visitsArr.push(visit);
+            localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
+        }else if(event.target === dropItemTer) {
+            let age = prompt('write here');
+            const visit = new Therapist(type, date, name, goal, info, age);
+            console.log(visit);
+            visitsArr.push(visit);
+            localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
+        }
+    })
+    
+
     // add class
+
     dropList.className += 'list'
     dropItemCard.className += 'list-item'
     dropItemDent.className += 'list-item'
     dropItemTer.className += 'list-item'
     // add all drop block inside blockmodal
     blockModal.appendChild(dropDoctorBlock)
-    // let dropBlock = document.getElementById('drop-block')
 }
+
+
+//
+//
+//
+//
+//
+//
+
+
 // function to close modal 
+
 function closeModal() {
     body.removeChild(blockModal)
     containerBg.classList.remove('dark-bg')
 }
 
-function removeDoctors (){
-    blockModal.removeChild(dropDoctorBlock)
-}
 
 // btn create Visit
+
 const btnCreate = document.getElementById('btn-create')
 btnCreate.addEventListener('click', () => {
     showModal()
 })
-
-
-
