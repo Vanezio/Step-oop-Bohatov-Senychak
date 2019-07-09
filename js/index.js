@@ -47,7 +47,7 @@ let body
 let choseDoctor
 let iconClose
 
-    
+let alertEmpty = document.querySelector('.message-add');
 
 function showModal () {
     containerBg = document.getElementById('dark-bg')
