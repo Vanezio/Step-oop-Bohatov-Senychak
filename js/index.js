@@ -11,22 +11,21 @@ class Visit {
 
 class Therapist extends  Visit{
     constructor(type, date, name, goal, info, age) {
-        super();
+        super(type, date, name, goal, info);
         this._visitAge = age;
-
     }
 }
 
-class Dantist extends  Visit{
+class Dentist extends  Visit{
     constructor(type, date, name, goal, info, lastDate) {
-        super();
+        super(type, date, name, goal, info);
         this._lastVisit = lastDate
     }
 }
 
 class Cardiologist extends  Visit{
     constructor(type, date, name, goal, info, age, pressure , mass, diseases) {
-        super();
+        super(type, date, name, goal, info);
         this._visitAge = age;
         this._commonPressure  = pressure ;
         this._bodyIndex = mass;
@@ -34,6 +33,13 @@ class Cardiologist extends  Visit{
     }
 }
 
+//
+//
+//
+//
+//
+//
+//
 
 let containerBg
 let blockModal
@@ -77,6 +83,20 @@ function showModal () {
     })
 }
 
+//
+//
+//
+//
+//
+//
+
+let visitsArr = [];
+
+//
+//
+//
+//
+//
 
 function showDoctors () {
     let dropDoctorBlock = document.createElement('div')
@@ -93,7 +113,33 @@ function showDoctors () {
     dropItemDent.innerText += 'Dentist'
     dropItemTer.innerText += 'therapist'
 
-    
+    dropList.addEventListener('click', (event) => {
+        let type = prompt('write here'),
+            date = prompt('write here'),
+            name = prompt('write here'),
+            goal = prompt('write here'),
+            info = prompt('write here')
+
+        if(event.target === dropItemCard) {
+            let age = prompt('write here'),
+                pressure = prompt('write here'),
+                mass = prompt('write here'),
+                diseases = prompt('write here');
+            const visit = new Cardiologist(type, date, name, goal, info, age, pressure , mass, diseases);
+            console.log(visit);
+            visitsArr.push(visit);
+        }else if(event.target === dropItemDent) {
+            let lastDate = prompt('write here');
+            const visit = new Dentist(type, date, name, goal, info, lastDate);
+            console.log(visit);
+            visitsArr.push(visit);
+        }else if(event.target === dropItemTer) {
+            let age = prompt('write here');
+            const visit = new Therapist(type, date, name, goal, info, age);
+            console.log(visit);
+            visitsArr.push(visit);
+        }
+    })
     
     dropList.className += 'list'
     dropItemCard.className += 'list-item'
@@ -103,10 +149,21 @@ function showDoctors () {
     blockModal.appendChild(dropDoctorBlock)
 }
 
+//
+//
+//
+//
+//
+//
+
 function closeModal() {
     body.removeChild(blockModal)
 }
 
+//
+//
+//
+//
 
 const btnCreate = document.getElementById('btn-create')
 btnCreate.addEventListener('click', () => {
