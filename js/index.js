@@ -9,12 +9,12 @@ let iconClose
 function showModal () {
     containerBg = document.getElementById('dark-bg')
     containerBg.className += 'dark-bg'
-    // 
+    // create block modal
     blockModal = document.createElement('div')
     body = document.querySelector('body')
     body.appendChild(blockModal)
     blockModal.className += 'block-modal'
-
+    // create drop menu 
     choseDoctor = document.createElement('div')
     choseDoctor.style.display = 'flex'
     choseDoctor.style.justifyContent = 'space-between'
@@ -31,18 +31,18 @@ function showModal () {
     iconClose.innerText += 'x'
 
     choseDoctor.className += 'doctors'
-    
+    // event  click show drop width doctors
     choseDoctorText.addEventListener('click', () => {
         showDoctors()
     })
-   
+    // event to close modal
     iconClose.addEventListener('click', () => {
         closeModal()
     })
 }
-
-
+// function show doctors
 function showDoctors () {
+    // create block width doctors
     let dropDoctorBlock = document.createElement('div')
     let dropList = document.createElement('ul')
     let dropItemCard = document.createElement('li')
@@ -52,26 +52,25 @@ function showDoctors () {
     dropList.appendChild(dropItemCard)
     dropList.appendChild(dropItemDent)
     dropList.appendChild(dropItemTer)
-    
+    // add text
     dropItemCard.innerText += 'Cardiologist'
     dropItemDent.innerText += 'Dentist'
     dropItemTer.innerText += 'therapist'
-
-    
-    
+    // add class
     dropList.className += 'list'
     dropItemCard.className += 'list-item'
     dropItemDent.className += 'list-item'
     dropItemTer.className += 'list-item'
-    
+    // add all drop block inside blockmodal
     blockModal.appendChild(dropDoctorBlock)
 }
-
+// function to close modal 
 function closeModal() {
     body.removeChild(blockModal)
+    containerBg.classList.remove('dark-bg')
 }
 
-
+// btn create Visit
 const btnCreate = document.getElementById('btn-create')
 btnCreate.addEventListener('click', () => {
     showModal()

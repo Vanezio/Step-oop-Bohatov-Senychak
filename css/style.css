@@ -1,6 +1,7 @@
 body {
     font-family: 'Lato', sans-serif;
 }
+/* dark screen behind modal */
 .dark-bg {
     position: absolute;
     top: 0;
@@ -8,14 +9,14 @@ body {
     width: 100%;
     background-color: rgba(0, 0, 0, 0.8);  
 }
-
+/*  */
 .container {
     max-width: 80%;
     height: 100%;
     margin: 0 auto;
     font-family: 'Lato', sans-serif;
 }
-
+/* header section */
 .header {
     display: flex;
     justify-content: space-between;
@@ -33,7 +34,7 @@ body {
     background-size: cover;
     margin-left: 20px;
 }
-
+/* btn create visit */
 .btn {
     height: 50px;
     width: 130px;
@@ -53,14 +54,16 @@ body {
     color: #fff;
 }
 
+/* main section */
 .main {
+    position: relative;
     margin-top: 50px;
     height: 500px;
     width: 100%;
     background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
     border-radius: 10px;
 }
-
+/* no items message */
 .message-add {
     text-align: center;
     padding-top: 20px;
@@ -68,11 +71,7 @@ body {
     font-size: 18px;
 }
 
-/*  */
-.main {
-    position: relative;
-}
-
+/* modal block section */
 .block-modal {
     position: absolute;
     top: 50%;
@@ -98,14 +97,7 @@ body {
     border-radius: 10px;
 }
 
-/* .fa-times {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    padding: 12px;
-} */
-
-/* drops */
+/* drops Doctor*/
 
 .list {
     width: 100%;
