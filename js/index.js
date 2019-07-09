@@ -46,6 +46,8 @@ let blockModal
 let body
 let choseDoctor
 let iconClose
+
+let alertEmpty = document.querySelector('.message-add');
     
 
 function showModal () {
@@ -90,7 +92,16 @@ function showModal () {
 //
 //
 
-let visitsArr = [];
+let visitsArr=[];
+
+const localCheck = () => {
+    if(localStorage.getItem('visitArr'))  {
+        visitsArr = JSON.parse(localStorage.getItem('visitArr'));
+        alertEmpty.style.display = 'none'
+    }
+};
+
+localCheck();
 
 //
 //
@@ -132,16 +143,19 @@ function showDoctors () {
             const visit = new Cardiologist(type, date, name, goal, info, age, pressure , mass, diseases);
             console.log(visit);
             visitsArr.push(visit);
+            localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
         }else if(event.target === dropItemDent) {
             let lastDate = prompt('write here');
             const visit = new Dentist(type, date, name, goal, info, lastDate);
             console.log(visit);
             visitsArr.push(visit);
+            localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
         }else if(event.target === dropItemTer) {
             let age = prompt('write here');
             const visit = new Therapist(type, date, name, goal, info, age);
             console.log(visit);
             visitsArr.push(visit);
+            localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
         }
     })
     
