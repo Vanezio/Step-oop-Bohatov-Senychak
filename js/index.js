@@ -4,6 +4,7 @@ let blockModal
 let body
 let choseDoctor
 let iconClose
+// let dropBlock = document.getElementById('drop-block')
     
 
 function showModal () {
@@ -31,9 +32,11 @@ function showModal () {
     iconClose.innerText += 'x'
 
     choseDoctor.className += 'doctors'
+
     // event  click show drop width doctors
     choseDoctorText.addEventListener('click', () => {
-        showDoctors()
+        showDoctors()  
+        choseDoctorText.style.visibility = 'hidden'
     })
     // event to close modal
     iconClose.addEventListener('click', () => {
@@ -49,6 +52,8 @@ function showDoctors () {
     let dropItemDent = document.createElement('li')
     let dropItemTer = document.createElement('li')
     dropDoctorBlock.appendChild(dropList)
+    dropDoctorBlock.setAttribute('id', 'drop-block')
+
     dropList.appendChild(dropItemCard)
     dropList.appendChild(dropItemDent)
     dropList.appendChild(dropItemTer)
@@ -63,11 +68,16 @@ function showDoctors () {
     dropItemTer.className += 'list-item'
     // add all drop block inside blockmodal
     blockModal.appendChild(dropDoctorBlock)
+    // let dropBlock = document.getElementById('drop-block')
 }
 // function to close modal 
 function closeModal() {
     body.removeChild(blockModal)
     containerBg.classList.remove('dark-bg')
+}
+
+function removeDoctors (){
+    blockModal.removeChild(dropDoctorBlock)
 }
 
 // btn create Visit
