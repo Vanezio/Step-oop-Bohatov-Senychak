@@ -47,7 +47,6 @@ let body
 let choseDoctor
 let iconClose
 
-let alertEmpty = document.querySelector('.message-add');
     
 
 function showModal () {
@@ -75,9 +74,11 @@ function showModal () {
     iconClose.innerText += 'x'
 
     choseDoctor.className += 'doctors'
+
     // event  click show drop width doctors
     choseDoctorText.addEventListener('click', () => {
-        showDoctors()
+        showDoctors()  
+        choseDoctorText.style.visibility = 'hidden'
     })
     // event to close modal
     iconClose.addEventListener('click', () => {
@@ -119,6 +120,8 @@ function showDoctors () {
     let dropItemDent = document.createElement('li')
     let dropItemTer = document.createElement('li')
     dropDoctorBlock.appendChild(dropList)
+    dropDoctorBlock.setAttribute('id', 'drop-block')
+
     dropList.appendChild(dropItemCard)
     dropList.appendChild(dropItemDent)
     dropList.appendChild(dropItemTer)
@@ -186,10 +189,6 @@ function closeModal() {
     containerBg.classList.remove('dark-bg')
 }
 
-//
-//
-//
-//
 
 // btn create Visit
 
