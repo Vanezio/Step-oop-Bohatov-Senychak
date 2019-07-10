@@ -75,6 +75,12 @@ function showModal () {
 
     choseDoctor.className += 'doctors'
 
+    // add button create
+    let btnCreateVisit = document.createElement('button')
+    blockModal.appendChild(btnCreateVisit)
+    btnCreateVisit.className += 'create-visit'
+    btnCreateVisit.innerText += 'Create Visit'
+
     // event  click show drop width doctors
     choseDoctorText.addEventListener('click', () => {
         showDoctors()  
@@ -86,12 +92,6 @@ function showModal () {
     })
 }
 
-//
-//
-//
-//
-//
-//
 
 let visitsArr=[];
 
@@ -106,12 +106,7 @@ localCheck();
 
 //
 //
-//
-//
-//
-
 // function show doctors
-
 function showDoctors () {
     // create block width doctors
     let dropDoctorBlock = document.createElement('div')
@@ -185,9 +180,7 @@ function showDoctors () {
         }
     })
     
-
     // add class
-
     dropList.className += 'list'
     dropItemCard.className += 'list-item'
     dropItemDent.className += 'list-item'
@@ -197,21 +190,11 @@ function showDoctors () {
 }
 
 
-//
-//
-//
-//
-//
-//
-
-
 // function to close modal 
-
 function closeModal() {
     body.removeChild(blockModal)
     containerBg.classList.remove('dark-bg')
 }
-
 
 // btn create Visit
 
