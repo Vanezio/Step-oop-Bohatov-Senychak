@@ -154,7 +154,24 @@ body {
     justify-content: space-around;
 }
 
+.doctor-form {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
 
+}
+
+.textarea {
+    width: 70%;
+    height: 20%;
+    resize: none;
+    border-radius: 10px;
+    outline: none;
+}
+
+.card-style{
+
+}
 
 
 

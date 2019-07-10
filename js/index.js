@@ -9,8 +9,8 @@ class Visit {
 
 class Therapist extends  Visit{
     constructor( date, name, goal, info, age) {
-        super(date, name, goal, info);
-        this._visitAge = age;
+        super(date, name, goal, info)
+        this._visitAge = age
         this._visitType = 'Therapist'
     }
  }
@@ -28,10 +28,10 @@ class Dentist extends  Visit{
 class Cardiologist extends  Visit{
     constructor(date, name, goal, info, age, pressure , mass, diseases) {
         super(date, name, goal, info);
-        this._visitAge = age;
-        this._commonPressure  = pressure ;
-        this._bodyIndex = mass;
-        this._heartDiseases = diseases;
+        this._visitAge = age
+        this._commonPressure  = pressure
+        this._bodyIndex = mass
+        this._heartDiseases = diseases
         this._visitType = 'Cardiologist'
     }
  }
@@ -44,11 +44,14 @@ class Cardiologist extends  Visit{
 //
 //
 
+
+
 let containerBg
 let blockModal
 let body
 let choseDoctor
 let iconClose
+let mainTable = document.querySelector('#main')
 
 let alertEmpty = document.querySelector('.message-add');
 
@@ -87,6 +90,51 @@ function showModal () {
     iconClose.addEventListener('click', () => {
         closeModal()
     })
+}
+
+//
+//
+//
+//
+// функциия создающая карту визита
+
+function createVisitCard (visitObj) {
+    let cardBlock = document.createElement('div')
+    cardBlock.className = 'card-style'
+
+    mainTable.appendChild(cardBlock)
+
+    let visiterName,
+        nameAndDeleteWrap,
+        doctor,
+        showMore,
+        showMoreContent,
+        deleteCard
+
+    nameAndDeleteWrap = document.createElement('div')
+    cardBlock.appendChild(nameAndDeleteWrap)
+    nameAndDeleteWrap.className = 'top-card-wrap'
+
+    visiterName = document.createElement("h1")
+    nameAndDeleteWrap.appendChild(visiterName)
+    visiterName.innerText = visitObj._visitName
+
+    deleteCard = document.createElement('div')
+    nameAndDeleteWrap.appendChild(deleteCard)
+    deleteCard.innerText = 'X'
+    deleteCard.className = 'delete-card-btn'
+
+    doctor = document.createElement('h2')
+    cardBlock.appendChild(doctor)
+    doctor.innerText = visitObj._visitType
+
+    showMore = document.createElement('p')
+    cardBlock.appendChild(showMore)
+    showMore.innerText = 'show more info about visit'
+
+    showMoreContent = document.createElement('div')
+    cardBlock.appendChild(showMoreContent)
+    showMoreContent.className = 'snowMoreStyle'
 }
 
 
@@ -131,7 +179,7 @@ function showDoctors () {
 
         btnCreate.className += 'create-visit'
         btnCreate.innerText += 'Create Visit'
-      
+
         let inputWraper = document.createElement('form');
         blockModal.appendChild(inputWraper);
         inputWraper.className = 'input-wrap';
@@ -174,13 +222,15 @@ function showDoctors () {
             massEl.setAttribute('placeholder', 'Visiter"s mass index')
             diseasesEl.setAttribute('placeholder', 'do you have heart diseases?')
 
+            inputWraper.addEventListener('submit', (event) => {
 
-            btnCreate.addEventListener('click', () => {
                 const visit = new Cardiologist(dateEl.value, nameEl.value, goalEl.value, infoEl.value, ageEl.value, pressureEl.value , massEl.value, diseasesEl.value);
                 console.log(visit);
                 visitsArr.push(visit);
                 localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
+                createVisitCard(visit)
                 closeModal()
+                event.preventDefault()
             })
         }else if(event.target === dropItemDent) {
             typeEl.innerText = "Dentist"
@@ -191,12 +241,14 @@ function showDoctors () {
 
             lDateEl.setAttribute('placeholder', 'Lat visit date')
 
-            btnCreate.addEventListener('click', () => {
+            inputWraper.addEventListener('submit', (event) => {
                 const visit = new Dentist(dateEl.value, nameEl.value, goalEl.value, infoEl.value, lDateEl.value);
                 console.log(visit);
                 visitsArr.push(visit);
                 localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
+                createVisitCard(visit)
                 closeModal()
+                event.preventDefault()
             })
         }else if(event.target === dropItemTer) {
             typeEl.innerText = "Therapist"
@@ -207,12 +259,14 @@ function showDoctors () {
 
             ageEl.setAttribute('placeholder', 'Visiter"s age')
 
-            btnCreate.addEventListener('click', () => {
+            inputWraper.addEventListener('submit', (event) => {
                 const visit = new Therapist(dateEl.value, nameEl.value, goalEl.value, infoEl.value, ageEl.value);
                 console.log(visit);
                 visitsArr.push(visit);
                 localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
+                createVisitCard(visit)
                 closeModal()
+                event.preventDefault()
             })
         }
 
