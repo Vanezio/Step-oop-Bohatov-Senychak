@@ -9,13 +9,20 @@ class Visit {
  
  class Therapist extends  Visit{
     constructor(date, name, goal, info, age) {
+=======
+}
+}
+
+class Therapist extends  Visit{
+    constructor( date, name, goal, info, age) {
         super(date, name, goal, info);
         this._visitAge = age;
         this._visitType = 'Therapist'
     }
  }
  
- class Dentist extends  Visit{
+
+class Dentist extends  Visit{
     constructor(date, name, goal, info, lastDate) {
         super(date, name, goal, info);
         this._lastVisit = lastDate
@@ -23,7 +30,8 @@ class Visit {
     }
  }
  
- class Cardiologist extends  Visit{
+
+class Cardiologist extends  Visit{
     constructor(date, name, goal, info, age, pressure , mass, diseases) {
         super(date, name, goal, info);
         this._visitAge = age;
@@ -33,6 +41,8 @@ class Visit {
         this._visitType = 'Cardiologist'
     }
  }
+
+let jhdgjdf = new Cardiologist()
 
 //
 //
@@ -128,20 +138,37 @@ function showDoctors () {
 
 
     dropList.addEventListener('click', (event) => {
+
         let inputWraper = document.createElement('div')
         blockModal.appendChild(inputWraper);
         inputWraper.className += 'input-wrap'
+
+        let inputWraper = document.createElement('div');
+        blockModal.appendChild(inputWraper);
+        inputWraper.className = 'input-wrap';
+
+
         let typeEl = document.createElement('h1'),
             dateEl = document.createElement('input'),
             nameEl = document.createElement('input'),
             goalEl = document.createElement('input'),
+
             infoEl = document.createElement('text-area');
+            infoEl = document.createElement('textarea');
+
 
         inputWraper.appendChild(typeEl);
         inputWraper.appendChild(dateEl);
         inputWraper.appendChild(nameEl);
         inputWraper.appendChild(goalEl);
-        inputWraper.appendChild(infoEl);
+
+
+
+        dateEl.setAttribute('placeholder', 'Date of visit')
+        nameEl.setAttribute('placeholder', 'Visiter"s name')
+        goalEl.setAttribute('placeholder', 'your problem is')
+        infoEl.setAttribute('placeholder', 'additional info')
+
 
         let type = typeEl.innerText,
             date = dateEl.innerText,
@@ -159,6 +186,11 @@ function showDoctors () {
             inputWraper.appendChild(pressureEl);
             inputWraper.appendChild(massEl);
             inputWraper.appendChild(diseasesEl);
+
+            ageEl.setAttribute('placeholder', 'Visiter"s age')
+            pressureEl.setAttribute('placeholder', 'Visiter"s common pressure')
+            massEl.setAttribute('placeholder', 'Visiter"s mass index')
+            diseasesEl.setAttribute('placeholder', 'do you have heart diseases?')
 
             let age = ageEl.innerText,
                 pressure = pressureEl.innerText,
@@ -182,6 +214,13 @@ function showDoctors () {
             visitsArr.push(visit);
             localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
         }
+
+        inputWraper.appendChild(infoEl);
+
+        infoEl.setAttribute('maxlength', '400')
+        infoEl.setAttribute('cols', '100')
+        infoEl.setAttribute('rows', '6')
+
         dropList.remove()
     })
     
