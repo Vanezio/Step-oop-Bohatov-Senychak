@@ -47,7 +47,7 @@ let body
 let choseDoctor
 let iconClose
 
-    
+let alertEmpty = document.querySelector('.message-add');
 
 function showModal () {
     containerBg = document.getElementById('dark-bg')
@@ -93,7 +93,16 @@ function showModal () {
 }
 
 
-let visitsArr = [];
+let visitsArr=[];
+
+const localCheck = () => {
+    if(localStorage.getItem('visitArr'))  {
+        visitsArr = JSON.parse(localStorage.getItem('visitArr'));
+        alertEmpty.style.display = 'none'
+    }
+};
+
+localCheck();
 
 //
 //
@@ -118,30 +127,56 @@ function showDoctors () {
 
 
     dropList.addEventListener('click', (event) => {
-        let type = prompt('write here'),
-            date = prompt('write here'),
-            name = prompt('write here'),
-            goal = prompt('write here'),
-            info = prompt('write here')
+        let typeEl = document.createElement('input'),
+            dateEl = document.createElement('input'),
+            nameEl = document.createElement('input'),
+            goalEl = document.createElement('input'),
+            infoEl = document.createElement('input');
+
+        blockModal.appendChild(typeEl);
+        blockModal.appendChild(dateEl);
+        blockModal.appendChild(nameEl);
+        blockModal.appendChild(goalEl);
+        blockModal.appendChild(infoEl);
+
+        let type = typeEl.innerText,
+            date = dateEl.innerText,
+            name = nameEl.innerText,
+            goal = goalEl.innerText,
+            info = infoEl.innerText;
 
         if(event.target === dropItemCard) {
-            let age = prompt('write here'),
-                pressure = prompt('write here'),
-                mass = prompt('write here'),
-                diseases = prompt('write here');
+            let ageEl = document.createElement('input'),
+                pressureEl = document.createElement('input'),
+                massEl = document.createElement('input'),
+                diseasesEl = document.createElement('input');
+
+            blockModal.appendChild(ageEl);
+            blockModal.appendChild(pressureEl);
+            blockModal.appendChild(massEl);
+            blockModal.appendChild(diseasesEl);
+
+            let age = ageEl.innerText,
+                pressure = pressureEl.innerText,
+                mass = massEl.innerText,
+                diseases = diseasesEl.innerText;
+
             const visit = new Cardiologist(type, date, name, goal, info, age, pressure , mass, diseases);
             console.log(visit);
             visitsArr.push(visit);
+            localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
         }else if(event.target === dropItemDent) {
             let lastDate = prompt('write here');
             const visit = new Dentist(type, date, name, goal, info, lastDate);
             console.log(visit);
             visitsArr.push(visit);
+            localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
         }else if(event.target === dropItemTer) {
             let age = prompt('write here');
             const visit = new Therapist(type, date, name, goal, info, age);
             console.log(visit);
             visitsArr.push(visit);
+            localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
         }
     })
     
