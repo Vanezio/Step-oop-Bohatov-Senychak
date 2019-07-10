@@ -129,6 +129,7 @@ function showDoctors () {
 
         btnCreate.className += 'create-visit'
         btnCreate.innerText += 'Create Visit'
+
         let inputWraper = document.createElement('form');
         blockModal.appendChild(inputWraper);
         inputWraper.className = 'input-wrap';
@@ -167,12 +168,13 @@ function showDoctors () {
             massEl.setAttribute('placeholder', 'Visiter"s mass index')
             diseasesEl.setAttribute('placeholder', 'do you have heart diseases?')
 
-            btnCreate.addEventListener('click', () => {
+            inputWraper.addEventListener('submit', (event) => {
                 const visit = new Cardiologist(dateEl.value, nameEl.value, goalEl.value, infoEl.value, ageEl.value, pressureEl.value , massEl.value, diseasesEl.value);
                 console.log(visit);
                 visitsArr.push(visit);
                 localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
                 closeModal()
+                event.preventDefault()
             })
         }else if(event.target === dropItemDent) {
             typeEl.innerText = "Dentist"
@@ -183,12 +185,13 @@ function showDoctors () {
 
             lDateEl.setAttribute('placeholder', 'Lat visit date')
 
-            btnCreate.addEventListener('click', () => {
+            btnCreate.addEventListener('click', (event) => {
                 const visit = new Dentist(dateEl.value, nameEl.value, goalEl.value, infoEl.value, lDateEl.value);
                 console.log(visit);
                 visitsArr.push(visit);
                 localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
                 closeModal()
+                event.preventDefault()
             })
         }else if(event.target === dropItemTer) {
             typeEl.innerText = "Therapist"
@@ -199,12 +202,13 @@ function showDoctors () {
 
             ageEl.setAttribute('placeholder', 'Visiter"s age')
 
-            btnCreate.addEventListener('click', () => {
+            btnCreate.addEventListener('click', (event) => {
                 const visit = new Therapist(dateEl.value, nameEl.value, goalEl.value, infoEl.value, ageEl.value);
                 console.log(visit);
                 visitsArr.push(visit);
                 localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
                 closeModal()
+                event.preventDefault()
             })
         }
 
