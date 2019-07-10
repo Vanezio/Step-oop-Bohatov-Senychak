@@ -179,6 +179,9 @@ const localCheck = () => {
     if(localStorage.getItem('visitArr'))  {
         visitsArr = JSON.parse(localStorage.getItem('visitArr'));
         alertEmpty.style.display = 'none'
+        visitsArr.forEach((elem)=>{
+            createVisitCard(elem)
+        })
     }
 };
 
