@@ -1,12 +1,11 @@
-
 class Visit {
     constructor (date, name, goal, info){
         this._visitName = name
         this._visitDate = date
         this._visitGoal = goal
         this._extraInfo = info
-}
-}
+ }
+ }
 
 class Therapist extends  Visit{
     constructor( date, name, goal, info, age) {
@@ -14,7 +13,8 @@ class Therapist extends  Visit{
         this._visitAge = age;
         this._visitType = 'Therapist'
     }
-}
+ }
+ 
 
 class Dentist extends  Visit{
     constructor(date, name, goal, info, lastDate) {
@@ -22,7 +22,8 @@ class Dentist extends  Visit{
         this._lastVisit = lastDate
         this._visitType = 'Dentist'
     }
-}
+ }
+ 
 
 class Cardiologist extends  Visit{
     constructor(date, name, goal, info, age, pressure , mass, diseases) {
@@ -33,7 +34,7 @@ class Cardiologist extends  Visit{
         this._heartDiseases = diseases;
         this._visitType = 'Cardiologist'
     }
-}
+ }
 
 //
 //
@@ -123,21 +124,27 @@ function showDoctors () {
 
 
     dropList.addEventListener('click', (event) => {
+
         // add button create
         let btnCreate = document.createElement('input')
         btnCreate.setAttribute('type', 'submit')
 
         btnCreate.className += 'create-visit'
         btnCreate.innerText += 'Create Visit'
+      
         let inputWraper = document.createElement('form');
         blockModal.appendChild(inputWraper);
         inputWraper.className = 'input-wrap';
+
 
         let typeEl = document.createElement('h1'),
             dateEl = document.createElement('input'),
             nameEl = document.createElement('input'),
             goalEl = document.createElement('input'),
+
+            infoEl = document.createElement('text-area');
             infoEl = document.createElement('textarea');
+
 
         inputWraper.appendChild(typeEl);
         inputWraper.appendChild(dateEl);
@@ -166,6 +173,7 @@ function showDoctors () {
             pressureEl.setAttribute('placeholder', 'Visiter"s common pressure')
             massEl.setAttribute('placeholder', 'Visiter"s mass index')
             diseasesEl.setAttribute('placeholder', 'do you have heart diseases?')
+
 
             btnCreate.addEventListener('click', () => {
                 const visit = new Cardiologist(dateEl.value, nameEl.value, goalEl.value, infoEl.value, ageEl.value, pressureEl.value , massEl.value, diseasesEl.value);
@@ -211,6 +219,7 @@ function showDoctors () {
         inputWraper.appendChild(infoEl);
 
         infoEl.setAttribute('maxlength', '400')
+
 
         let allInputs = document.querySelectorAll('input')
 
