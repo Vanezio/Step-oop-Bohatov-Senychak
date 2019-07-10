@@ -122,6 +122,33 @@ body {
     color: #fff;
 }
 
+/* btn create visit */
+.create-visit {
+    display: flex;
+    height: 40px;
+    width: 80%;
+    background-image: linear-gradient(to right, #2e84a0, #007eb5, #0075ca, #0067da, #0052df, #1e49dc, #2f40d9, #3d35d5, #3d40d2, #4049cf, #4451cb, #4959c6);
+    position: absolute;
+    bottom: 25px;
+    left: 10%;
+    border-radius: 10px;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 18px;
+    cursor: pointer;
+    outline: none;
+    border: transparent;
+}
+.create-visit:hover {
+    background-image: linear-gradient(to right, #e79dd9, #d5a2e3, #c2a7e9, #afacec, #9cb0ec, #8facee, #7fa8f1, #6da4f3, #6396fa, #6487fe, #6f75ff, #815ffb);
+    font-weight: bold;
+}
+
+
+
+
 
 
 
