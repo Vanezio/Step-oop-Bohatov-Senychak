@@ -131,11 +131,7 @@ function showDoctors () {
 
         btnCreate.className += 'create-visit'
         btnCreate.innerText += 'Create Visit'
-<<<<<<< HEAD
 
-=======
-      
->>>>>>> 00c4523ec2de2050a6a45bbc15b29ff49cff8b60
         let inputWraper = document.createElement('form');
         blockModal.appendChild(inputWraper);
         inputWraper.className = 'input-wrap';
@@ -178,12 +174,8 @@ function showDoctors () {
             massEl.setAttribute('placeholder', 'Visiter"s mass index')
             diseasesEl.setAttribute('placeholder', 'do you have heart diseases?')
 
-<<<<<<< HEAD
             inputWraper.addEventListener('submit', (event) => {
-=======
 
-            btnCreate.addEventListener('click', () => {
->>>>>>> 00c4523ec2de2050a6a45bbc15b29ff49cff8b60
                 const visit = new Cardiologist(dateEl.value, nameEl.value, goalEl.value, infoEl.value, ageEl.value, pressureEl.value , massEl.value, diseasesEl.value);
                 console.log(visit);
                 visitsArr.push(visit);
