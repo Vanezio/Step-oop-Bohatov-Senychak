@@ -6,12 +6,6 @@ class Visit {
         this._extraInfo = info
  }
  }
- 
- class Therapist extends  Visit{
-    constructor(date, name, goal, info, age) {
-=======
-}
-}
 
 class Therapist extends  Visit{
     constructor( date, name, goal, info, age) {
@@ -37,12 +31,10 @@ class Cardiologist extends  Visit{
         this._visitAge = age;
         this._commonPressure  = pressure ;
         this._bodyIndex = mass;
-        this.heartDiseases = diseases;
+        this._heartDiseases = diseases;
         this._visitType = 'Cardiologist'
     }
  }
-
-let jhdgjdf = new Cardiologist()
 
 //
 //
@@ -85,12 +77,6 @@ function showModal () {
     iconClose.innerText += 'x'
 
     choseDoctor.className += 'doctors'
-
-    // add button create
-    let btnCreateVisit = document.createElement('button')
-    blockModal.appendChild(btnCreateVisit)
-    btnCreateVisit.className += 'create-visit'
-    btnCreateVisit.innerText += 'Create Visit'
 
     // event  click show drop width doctors
     choseDoctorText.addEventListener('click', () => {
@@ -139,11 +125,14 @@ function showDoctors () {
 
     dropList.addEventListener('click', (event) => {
 
-        let inputWraper = document.createElement('div')
-        blockModal.appendChild(inputWraper);
-        inputWraper.className += 'input-wrap'
+        // add button create
+        let btnCreate = document.createElement('input')
+        btnCreate.setAttribute('type', 'submit')
 
-        let inputWraper = document.createElement('div');
+        btnCreate.className += 'create-visit'
+        btnCreate.innerText += 'Create Visit'
+      
+        let inputWraper = document.createElement('form');
         blockModal.appendChild(inputWraper);
         inputWraper.className = 'input-wrap';
 
@@ -162,21 +151,14 @@ function showDoctors () {
         inputWraper.appendChild(nameEl);
         inputWraper.appendChild(goalEl);
 
-
-
         dateEl.setAttribute('placeholder', 'Date of visit')
         nameEl.setAttribute('placeholder', 'Visiter"s name')
         goalEl.setAttribute('placeholder', 'your problem is')
         infoEl.setAttribute('placeholder', 'additional info')
 
-
-        let type = typeEl.innerText,
-            date = dateEl.innerText,
-            name = nameEl.innerText,
-            goal = goalEl.innerText,
-            info = infoEl.innerText;
-
         if(event.target === dropItemCard) {
+            typeEl.innerText = "Cardiologist"
+
             let ageEl = document.createElement('input'),
                 pressureEl = document.createElement('input'),
                 massEl = document.createElement('input'),
@@ -192,34 +174,60 @@ function showDoctors () {
             massEl.setAttribute('placeholder', 'Visiter"s mass index')
             diseasesEl.setAttribute('placeholder', 'do you have heart diseases?')
 
-            let age = ageEl.innerText,
-                pressure = pressureEl.innerText,
-                mass = massEl.innerText,
-                diseases = diseasesEl.innerText;
 
-            const visit = new Cardiologist(date, name, goal, info, age, pressure , mass, diseases);
-            console.log(visit);
-            visitsArr.push(visit);
-            localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
+            btnCreate.addEventListener('click', () => {
+                const visit = new Cardiologist(dateEl.value, nameEl.value, goalEl.value, infoEl.value, ageEl.value, pressureEl.value , massEl.value, diseasesEl.value);
+                console.log(visit);
+                visitsArr.push(visit);
+                localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
+                closeModal()
+            })
         }else if(event.target === dropItemDent) {
-            let lastDate = prompt('write here');
-            const visit = new Dentist( date, name, goal, info, lastDate);
-            console.log(visit);
-            visitsArr.push(visit);
-            localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
+            typeEl.innerText = "Dentist"
+
+            let lDateEl = document.createElement('input')
+
+            inputWraper.appendChild(lDateEl)
+
+            lDateEl.setAttribute('placeholder', 'Lat visit date')
+
+            btnCreate.addEventListener('click', () => {
+                const visit = new Dentist(dateEl.value, nameEl.value, goalEl.value, infoEl.value, lDateEl.value);
+                console.log(visit);
+                visitsArr.push(visit);
+                localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
+                closeModal()
+            })
         }else if(event.target === dropItemTer) {
-            let age = prompt('write here');
-            const visit = new Therapist(date, name, goal, info, age);
-            console.log(visit);
-            visitsArr.push(visit);
-            localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
+            typeEl.innerText = "Therapist"
+
+            let ageEl = document.createElement('input')
+
+            inputWraper.appendChild(ageEl)
+
+            ageEl.setAttribute('placeholder', 'Visiter"s age')
+
+            btnCreate.addEventListener('click', () => {
+                const visit = new Therapist(dateEl.value, nameEl.value, goalEl.value, infoEl.value, ageEl.value);
+                console.log(visit);
+                visitsArr.push(visit);
+                localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
+                closeModal()
+            })
         }
 
         inputWraper.appendChild(infoEl);
 
         infoEl.setAttribute('maxlength', '400')
-        infoEl.setAttribute('cols', '100')
-        infoEl.setAttribute('rows', '6')
+
+
+        let allInputs = document.querySelectorAll('input')
+
+        allInputs.forEach((e) => {
+            e.required = true
+        })
+
+        inputWraper.appendChild(btnCreate)
 
         dropList.remove()
     })
@@ -242,7 +250,7 @@ function closeModal() {
 
 // btn create Visit
 
-const btnCreate = document.getElementById('btn-create')
-btnCreate.addEventListener('click', () => {
+const btnCreateForm = document.getElementById('btn-create')
+btnCreateForm.addEventListener('click', () => {
     showModal()
 })
