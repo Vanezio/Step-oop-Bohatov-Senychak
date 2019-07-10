@@ -1,37 +1,41 @@
 
 class Visit {
-    constructor (type, date, name, goal, info){
+    constructor (date, name, goal, info){
         this._visitName = name
         this._visitDate = date
-        this._visitType = type
         this._visitGoal = goal
         this._extraInfo = info
 }
 }
 
 class Therapist extends  Visit{
-    constructor(type, date, name, goal, info, age) {
-        super(type, date, name, goal, info);
+    constructor( date, name, goal, info, age) {
+        super(date, name, goal, info);
         this._visitAge = age;
+        this._visitType = 'Therapist'
     }
 }
 
 class Dentist extends  Visit{
-    constructor(type, date, name, goal, info, lastDate) {
-        super(type, date, name, goal, info);
+    constructor(date, name, goal, info, lastDate) {
+        super(date, name, goal, info);
         this._lastVisit = lastDate
+        this._visitType = 'Dentist'
     }
 }
 
 class Cardiologist extends  Visit{
-    constructor(type, date, name, goal, info, age, pressure , mass, diseases) {
-        super(type, date, name, goal, info);
+    constructor(date, name, goal, info, age, pressure , mass, diseases) {
+        super(date, name, goal, info);
         this._visitAge = age;
         this._commonPressure  = pressure ;
         this._bodyIndex = mass;
         this.heartDiseases = diseases;
+        this._visitType = 'Cardiologist'
     }
 }
+
+let jhdgjdf = new Cardiologist()
 
 //
 //
@@ -127,21 +131,28 @@ function showDoctors () {
 
 
     dropList.addEventListener('click', (event) => {
-
-        let inputWraper = document.createElement('div')
+        let inputWraper = document.createElement('div');
         blockModal.appendChild(inputWraper);
+        inputWraper.className = 'input-wrap';
 
-        let typeEl = document.createElement('input'),
+        let typeEl = document.createElement('h1'),
             dateEl = document.createElement('input'),
             nameEl = document.createElement('input'),
             goalEl = document.createElement('input'),
-            infoEl = document.createElement('input');
+            infoEl = document.createElement('textarea');
 
         inputWraper.appendChild(typeEl);
         inputWraper.appendChild(dateEl);
         inputWraper.appendChild(nameEl);
         inputWraper.appendChild(goalEl);
-        inputWraper.appendChild(infoEl);
+
+
+
+        dateEl.setAttribute('placeholder', 'Date of visit')
+        nameEl.setAttribute('placeholder', 'Visiter"s name')
+        goalEl.setAttribute('placeholder', 'your problem is')
+        infoEl.setAttribute('placeholder', 'additional info')
+
 
         let type = typeEl.innerText,
             date = dateEl.innerText,
@@ -159,6 +170,11 @@ function showDoctors () {
             inputWraper.appendChild(pressureEl);
             inputWraper.appendChild(massEl);
             inputWraper.appendChild(diseasesEl);
+
+            ageEl.setAttribute('placeholder', 'Visiter"s age')
+            pressureEl.setAttribute('placeholder', 'Visiter"s common pressure')
+            massEl.setAttribute('placeholder', 'Visiter"s mass index')
+            diseasesEl.setAttribute('placeholder', 'do you have heart diseases?')
 
             let age = ageEl.innerText,
                 pressure = pressureEl.innerText,
@@ -182,6 +198,16 @@ function showDoctors () {
             visitsArr.push(visit);
             localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
         }
+
+        inputWraper.appendChild(infoEl);
+
+        infoEl.setAttribute('maxlength', '400')
+        infoEl.setAttribute('cols', '100')
+        infoEl.setAttribute('rows', '6')
+
+
+
+        dropList.remove()
     })
     
     // add class
