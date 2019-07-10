@@ -109,11 +109,21 @@ function createVisitCard (visitObj) {
         doctor,
         showMore,
         showMoreContent,
-        deleteCard
+        deleteCard,
+        additional
+
+    //В зависимости от доктора создает разные массивы с доп инфой
+    if(visitObj._visitType === 'Therapist'){
+        additional = [visitObj._visitDate, visitObj._visitGoal, visitObj._extraInfo, visitObj._visitAge]
+    } else if(visitObj._visitType === 'Dentist'){
+        additional = [visitObj._visitDate, visitObj._visitGoal, visitObj._extraInfo, visitObj._lastVisit]
+    } else if(visitObj._visitType === 'Cardiologist'){
+        additional = [visitObj._visitDate, visitObj._visitGoal, visitObj._extraInfo, visitObj._visitAge, visitObj._commonPressure, visitObj._bodyIndex, visitObj._heartDiseases]
+    }
 
     nameAndDeleteWrap = document.createElement('div')
     cardBlock.appendChild(nameAndDeleteWrap)
-    nameAndDeleteWrap.className = 'top-card-wrap'
+    nameAndDeleteWrap.className = 'snowMoreItemStyle'
 
     visiterName = document.createElement("h1")
     nameAndDeleteWrap.appendChild(visiterName)
@@ -131,10 +141,35 @@ function createVisitCard (visitObj) {
     showMore = document.createElement('p')
     cardBlock.appendChild(showMore)
     showMore.innerText = 'show more info about visit'
+    showMore.setAttribute('data-check', '1')
+        //при нажатии скрывае или показывает доп информацию
+    showMore.addEventListener('click', () => {
+        switch (showMore.dataset.check) {
+            case '1' :
+                showMore.dataset.check = '2'
+                showMore.innerText = 'show less info about visit'
+                showMoreContent.style.display = 'inline-block'
+                break
+            case '2' :
+                showMore.dataset.check = '1'
+                showMore.innerText = 'show more info about visit'
+                showMoreContent.style.display = 'none'
+                break
+        }
+    })
 
     showMoreContent = document.createElement('div')
     cardBlock.appendChild(showMoreContent)
     showMoreContent.className = 'snowMoreStyle'
+    showMoreContent.style.display = 'none'
+
+    //для каждого элемента созданного массива доп инфы делает Р с его инфой
+    additional.forEach((elem)=>{
+        let addText = document.createElement('p')
+        showMoreContent.appendChild(addText)
+        addText.classNamec = 'more-info-item'
+        addText.innerText = elem
+    })
 }
 
 
