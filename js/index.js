@@ -132,17 +132,21 @@ function showDoctors () {
 
 
     dropList.addEventListener('click', (event) => {
+
+        let inputWraper = document.createElement('div')
+        blockModal.appendChild(inputWraper);
+
         let typeEl = document.createElement('input'),
             dateEl = document.createElement('input'),
             nameEl = document.createElement('input'),
             goalEl = document.createElement('input'),
             infoEl = document.createElement('input');
 
-        blockModal.appendChild(typeEl);
-        blockModal.appendChild(dateEl);
-        blockModal.appendChild(nameEl);
-        blockModal.appendChild(goalEl);
-        blockModal.appendChild(infoEl);
+        inputWraper.appendChild(typeEl);
+        inputWraper.appendChild(dateEl);
+        inputWraper.appendChild(nameEl);
+        inputWraper.appendChild(goalEl);
+        inputWraper.appendChild(infoEl);
 
         let type = typeEl.innerText,
             date = dateEl.innerText,
@@ -156,10 +160,10 @@ function showDoctors () {
                 massEl = document.createElement('input'),
                 diseasesEl = document.createElement('input');
 
-            blockModal.appendChild(ageEl);
-            blockModal.appendChild(pressureEl);
-            blockModal.appendChild(massEl);
-            blockModal.appendChild(diseasesEl);
+            inputWraper.appendChild(ageEl);
+            inputWraper.appendChild(pressureEl);
+            inputWraper.appendChild(massEl);
+            inputWraper.appendChild(diseasesEl);
 
             let age = ageEl.innerText,
                 pressure = pressureEl.innerText,
