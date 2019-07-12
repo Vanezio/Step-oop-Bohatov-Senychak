@@ -99,6 +99,8 @@ function showModal () {
 const dragNDrop = (cardBlock, showMore, deleteCard) => {
     let shiftY, shiftX
 
+    let startY, startX
+
     let dragStatus = false
 
     function px(c){
@@ -109,12 +111,19 @@ const dragNDrop = (cardBlock, showMore, deleteCard) => {
         if (event.target !== showMore && deleteCard) {
             dragStatus = true
 
+            startY = cardBlock.style.top
+            console.log(startY);
+            startX = cardBlock.style.left
+            console.log(startX);
+
             cardBlock.setAttribute('data-drag', '2')
             let rect = cardBlock.getBoundingClientRect()
             shiftY = event.clientY - rect.top
             shiftX = event.clientX - rect.left
 
             cardBlock.style.zIndex = '2'
+
+            cardBlock.style.margin = '0'
 
             console.log(shiftY, shiftX)
             cardBlock.style.position = 'fixed'
@@ -125,7 +134,7 @@ const dragNDrop = (cardBlock, showMore, deleteCard) => {
 
     cardBlock.addEventListener('mouseup', function (event) {
         if(dragStatus === true) {
-            if (event.target !== showMore && deleteCard) {
+            if (event.target !== showMore && deleteCard && cardBlock.children) {
                 dragStatus = false
 
                 let rect = cardBlock.getBoundingClientRect()
@@ -135,7 +144,24 @@ const dragNDrop = (cardBlock, showMore, deleteCard) => {
                 cardBlock.style.zIndex = '1'
 
                 cardBlock.style.position = 'fixed'
-                move(cardBlock, event.pageX - shiftX, event.pageY - shiftY)
+
+                document.querySelectorAll('.card-style').forEach((elemelem) => {
+                    elemelem.style.visibility = 'hidden'
+                })
+                let elUnderCursor = document.elementFromPoint(event.pageX - event.offsetX, event.pageY - event.offsetY)
+                console.log(elUnderCursor);
+                document.querySelectorAll('.card-style').forEach((elemelem) => {
+                    elemelem.style.visibility = 'visible'
+                })
+
+                console.log(startY);
+                console.log(startX);
+                if(elUnderCursor !== mainTable){
+                    cardBlock.style.top = startY
+                    cardBlock.style.left = startX
+                } else {
+                    move(cardBlock, event.pageX - shiftX, event.pageY - shiftY)
+                }
             }
         }
     })
@@ -146,7 +172,11 @@ const dragNDrop = (cardBlock, showMore, deleteCard) => {
 
     document.addEventListener('mousemove', function(event){
         if(dragStatus){
-            move(cardBlock, event.pageX - shiftX, event.pageY - shiftY)
+            if (event.target !== showMore && deleteCard) {
+                move(cardBlock, event.pageX - shiftX, event.pageY - shiftY)
+            } else {
+                dragStatus = false
+            }
         }
     })
 
@@ -227,7 +257,7 @@ function createVisitCard (visitObj) {
 
     showMore = document.createElement('p')
     cardBlock.appendChild(showMore)
-    showMore.innerText = 'show more info about visit'
+    showMore.innerText = 'show more'
     showMore.className = 'show-more-btn'
     showMore.setAttribute('data-check', '1')
         //при нажатии скрывае или показывает доп информацию
@@ -235,13 +265,15 @@ function createVisitCard (visitObj) {
         switch (showMore.dataset.check) {
             case '1' :
                 showMore.dataset.check = '2'
-                showMore.innerText = 'show less info about visit'
-                showMoreContent.style.display = 'inline-block'
+                showMore.innerText = 'show less'
+                showMoreContent.style.display = 'block'
+                cardBlock.style.zIndex = '3'
                 break
             case '2' :
                 showMore.dataset.check = '1'
-                showMore.innerText = 'show more info about visit'
+                showMore.innerText = 'show more'
                 showMoreContent.style.display = 'none'
+                cardBlock.style.zIndex = '1'
                 break
         }
     })
@@ -255,7 +287,6 @@ function createVisitCard (visitObj) {
     additional.forEach((elem)=>{
         let addText = document.createElement('p')
         showMoreContent.appendChild(addText)
-        addText.classNamec = 'more-info-item'
         addText.innerText = elem
     })
 
@@ -364,7 +395,7 @@ function showDoctors () {
 
             inputWraper.addEventListener('submit', (event) => {
 
-                const visit = new Cardiologist(dateEl.value, nameEl.value, goalEl.value, infoEl.value, ageEl.value, pressureEl.value , massEl.value, diseasesEl.value);
+                const visit = new Cardiologist(`Visit date : ${dateEl.value}`, nameEl.value, `Goal of this visit : ${goalEl.value}`, `Additional info : ${infoEl.value}`, `Visiters age : ${ageEl.value}`, `Visiters common pressure : ${pressureEl.value}` , `Visiters body mass index ${massEl.value}`, `Does visiter has heart diseases : ${diseasesEl.value}`);
                 console.log(visit);
                 visitsArr.push(visit);
                 localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
@@ -382,7 +413,7 @@ function showDoctors () {
             lDateEl.setAttribute('placeholder', '"My last visit was ..."')
 
             inputWraper.addEventListener('submit', (event) => {
-                const visit = new Dentist(dateEl.value, nameEl.value, goalEl.value, infoEl.value, lDateEl.value);
+                const visit = new Dentist(`Visit date : ${dateEl.value}`, nameEl.value, `Goal of this visit : ${goalEl.value}`, `Additional info : ${infoEl.value}`, `Date of the last visit : ${lDateEl.value}`);
                 console.log(visit);
                 visitsArr.push(visit);
                 localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
@@ -400,7 +431,7 @@ function showDoctors () {
             ageEl.setAttribute('placeholder', '"My age is ..."')
 
             inputWraper.addEventListener('submit', (event) => {
-                const visit = new Therapist(dateEl.value, nameEl.value, goalEl.value, infoEl.value, ageEl.value);
+                const visit = new Therapist(`Visit date : ${dateEl.value}`, nameEl.value, `Goal of this visit : ${goalEl.value}`, `Additional info : ${infoEl.value}`, `Visiters age : ${ageEl.value}`);
                 console.log(visit);
                 visitsArr.push(visit);
                 localStorage.setItem("visitArr" , JSON.stringify(visitsArr))
