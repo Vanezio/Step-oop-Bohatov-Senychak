@@ -8,8 +8,8 @@ class Visit {
  }
 
 class Therapist extends  Visit{
-    constructor( date, name, goal, info,age) {
-        super(date, name, goal, info,)
+    constructor( date, name, goal, info, age) {
+        super(date, name, goal, info)
         this._visitAge = age
         this._visitType = 'Therapist'
     }
@@ -18,7 +18,7 @@ class Therapist extends  Visit{
 
 class Dentist extends  Visit{
     constructor(date, name, goal, info, lastDate) {
-        super(date, name, goal, info,);
+        super(date, name, goal, info);
         this._lastVisit = lastDate
         this._visitType = 'Dentist'
     }
@@ -27,7 +27,7 @@ class Dentist extends  Visit{
 
 class Cardiologist extends  Visit{
     constructor(date, name, goal, info, age, pressure , mass, diseases) {
-        super(date, name, goal, info,);
+        super(date, name, goal, info);
         this._visitAge = age
         this._commonPressure  = pressure
         this._bodyIndex = mass
@@ -52,8 +52,6 @@ let body
 let choseDoctor
 let iconClose
 let mainTable = document.querySelector('#main')
-
-mainTable.zIndex = '1'
 
 let alertEmpty = document.querySelector('.message-add');
 
@@ -94,72 +92,6 @@ function showModal () {
     })
 }
 
-
-
-const dragNDrop = (cardBlock, showMore, deleteCard) => {
-    let shiftY, shiftX
-
-    let dragStatus = false
-
-    function px(c){
-        return c+'px'
-    }
-
-    cardBlock.addEventListener('mousedown', function some (event){
-        if (event.target !== showMore && deleteCard) {
-            dragStatus = true
-
-            cardBlock.setAttribute('data-drag', '2')
-            let rect = cardBlock.getBoundingClientRect()
-            shiftY = event.clientY - rect.top
-            shiftX = event.clientX - rect.left
-
-            cardBlock.style.zIndex = '2'
-
-            console.log(shiftY, shiftX)
-            cardBlock.style.position = 'fixed'
-            move(cardBlock, event.pageX - shiftX, event.pageY - shiftY)
-
-        }
-    })
-
-    cardBlock.addEventListener('mouseup', function (event) {
-        if(dragStatus === true) {
-            if (event.target !== showMore && deleteCard) {
-                dragStatus = false
-
-                let rect = cardBlock.getBoundingClientRect()
-                shiftY = event.clientY - rect.top
-                shiftX = event.clientX - rect.left
-
-                cardBlock.style.zIndex = '1'
-
-                cardBlock.style.position = 'fixed'
-                move(cardBlock, event.pageX - shiftX, event.pageY - shiftY)
-            }
-        }
-    })
-
-    cardBlock.ondragstart = function(event) {
-        event.preventDefault()
-    };
-
-    document.addEventListener('mousemove', function(event){
-        if(dragStatus){
-            move(cardBlock, event.pageX - shiftX, event.pageY - shiftY)
-        }
-    })
-
-    function move(el, x, y){
-        el.style.top = px(y)
-        el.style.left = px(x)
-    }
-}
-
-
-
-
-
 //
 //
 //
@@ -171,11 +103,6 @@ function createVisitCard (visitObj) {
     cardBlock.className = 'card-style'
 
     mainTable.appendChild(cardBlock)
-
-    //Драг н дроп
-    //
-    //
-    //
 
     let visiterName,
         nameAndDeleteWrap,
@@ -206,20 +133,6 @@ function createVisitCard (visitObj) {
     nameAndDeleteWrap.appendChild(deleteCard)
     deleteCard.innerText = 'X'
     deleteCard.className = 'delete-card-btn'
-
-    deleteCard.addEventListener('click', () => {
-        let cardsArr = document.querySelectorAll('.card-style')
-
-        cardsArr.forEach ((el, i) => {
-            if(cardBlock === el){
-                cardBlock.remove()
-                visitsArr.splice(i, 1)
-                localStorage.clear()
-                localStorage.setItem('visitArr', JSON.stringify(visitsArr))
-                checkEmpty()
-            }
-        })
-    })
 
     doctor = document.createElement('h2')
     cardBlock.appendChild(doctor)
@@ -258,34 +171,22 @@ function createVisitCard (visitObj) {
         addText.classNamec = 'more-info-item'
         addText.innerText = elem
     })
-
-    dragNDrop(cardBlock, showMore, deleteCard)
-
-    checkEmpty()
 }
+
 
 let visitsArr=[];
 
 const localCheck = () => {
     if(localStorage.getItem('visitArr'))  {
-        visitsArr = JSON.parse(localStorage.getItem('visitArr'))
+        visitsArr = JSON.parse(localStorage.getItem('visitArr'));
+        alertEmpty.style.display = 'none'
         visitsArr.forEach((elem)=>{
             createVisitCard(elem)
         })
     }
 };
 
-const checkEmpty = () => {
-    if(document.querySelector('.card-style')){
-        alertEmpty.style.display = 'none'
-    } else {
-        alertEmpty.style.display = 'block'
-    }
-}
-
-localCheck()
-
-checkEmpty()
+localCheck();
 
 //
 //
@@ -310,8 +211,6 @@ function showDoctors () {
 
 
     dropList.addEventListener('click', (event) => {
-
-        const randomId = () => {return Math.floor(Math.random()* (1000))}
 
         // add button create
         let btnCreate = document.createElement('input')
@@ -339,9 +238,9 @@ function showDoctors () {
         inputWraper.appendChild(nameEl);
         inputWraper.appendChild(goalEl);
 
-        dateEl.setAttribute('placeholder', '"Date of visit is ..."')
+        dateEl.setAttribute('placeholder', 'Date of visit')
         nameEl.setAttribute('placeholder', 'Visiter"s name')
-        goalEl.setAttribute('placeholder', '"My problem is ..."')
+        goalEl.setAttribute('placeholder', 'your problem is')
         infoEl.setAttribute('placeholder', 'additional info')
 
         if(event.target === dropItemCard) {
@@ -357,10 +256,10 @@ function showDoctors () {
             inputWraper.appendChild(massEl);
             inputWraper.appendChild(diseasesEl);
 
-            ageEl.setAttribute('placeholder', '"My age is ..."')
-            pressureEl.setAttribute('placeholder', '"My common pressure is ..."')
-            massEl.setAttribute('placeholder', '"My mass index is ..."')
-            diseasesEl.setAttribute('placeholder', 'Do you have heart diseases?')
+            ageEl.setAttribute('placeholder', 'Visiter"s age')
+            pressureEl.setAttribute('placeholder', 'Visiter"s common pressure')
+            massEl.setAttribute('placeholder', 'Visiter"s mass index')
+            diseasesEl.setAttribute('placeholder', 'do you have heart diseases?')
 
             inputWraper.addEventListener('submit', (event) => {
 
@@ -379,7 +278,7 @@ function showDoctors () {
 
             inputWraper.appendChild(lDateEl)
 
-            lDateEl.setAttribute('placeholder', '"My last visit was ..."')
+            lDateEl.setAttribute('placeholder', 'Lat visit date')
 
             inputWraper.addEventListener('submit', (event) => {
                 const visit = new Dentist(dateEl.value, nameEl.value, goalEl.value, infoEl.value, lDateEl.value);
@@ -397,7 +296,7 @@ function showDoctors () {
 
             inputWraper.appendChild(ageEl)
 
-            ageEl.setAttribute('placeholder', '"My age is ..."')
+            ageEl.setAttribute('placeholder', 'Visiter"s age')
 
             inputWraper.addEventListener('submit', (event) => {
                 const visit = new Therapist(dateEl.value, nameEl.value, goalEl.value, infoEl.value, ageEl.value);
